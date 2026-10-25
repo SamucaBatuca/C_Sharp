@@ -51,12 +51,12 @@ namespace Personas{ // o básico na criação de packages de classes
 
 // para usar classes
 
-using Personas;
+/*using Personas;
 
 Pessoa p = new Pessoa();
 p.nome = "Tomé";
 p.idade = 32;
-p.oi();
+p.oi();*/
 
 
 
