@@ -1,8 +1,11 @@
 CREATE TABLE Produto(
 	id_Produto SERIAL PRIMARY KEY,
+	Nome_Produto VARCHAR(50) NOT NULL,
+	Preco_Produto NUMERIC(10,2) NOT NULL,
 	lote VARCHAR(50) NOT NULL,
 	validade DATE NOT NULL,
-	Cod_Barra VARCHAR(50) NOT NULL
+	Cod_Barra VARCHAR(50) NOT NULL,
+	Cadastro_Produto TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Cliente (
@@ -10,7 +13,8 @@ CREATE TABLE Cliente (
 	Nome_Cliente VARCHAR(50) NOT NULL,
 	CPF_Cliente VARCHAR(11),
 	Cidade_Cliente VARCHAR(50),
-	Estado_Cliente VARCHAR(50)
+	Estado_Cliente VARCHAR(50),
+	Cadastro_Cliente TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Funcionario(
@@ -18,19 +22,21 @@ CREATE TABLE Funcionario(
 	CPF_Funcionario VARCHAR(11) NOT NULL,
 	Nome_Funcionario VARCHAR(50) NOT NULL,
 	Funcao VARCHAR(30) NOT NULL,
-	Salario NUMERIC(10,2) NOT NULL
+	Salario NUMERIC(10,2) NOT NULL,
+	Cadastro_Funcionario TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Fornecedor(
 	id_Fornecedor SERIAL PRIMARY KEY,
 	CNPJ_Fornecedor VARCHAR(14) NOT NULL,
-	Nome_Fornecedor VARCHAR(50) NOT NULL
+	Nome_Fornecedor VARCHAR(50) NOT NULL,
+	Cadastro_Fornecedor TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Caixa(
 	id_Caixa SERIAL PRIMARY KEY,
 	Vendas_Totais NUMERIC(10,2) NOT NULL,
-	Ultima_Atualizacao DATE NOT NULL
+	Ultima_Atualizacao DATETIME NOT NULL
 );
 
 
@@ -41,6 +47,7 @@ CREATE TABLE Nota_Compra(
 	fk_id_Produto INTEGER NOT NULL,
 	Valor_Compra NUMERIC(10,2) NOT NULL,
 	Qntd_Compra INTEGER NOT NULL,
+	Data_Compra TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	FOREIGN KEY (fk_id_Fornecedor) REFERENCES Fornecedor(id_Fornecedor)
 		ON DELETE RESTRICT,
@@ -53,7 +60,7 @@ CREATE TABLE Venda_Caixa(
 	fk_id_Caixa INTEGER NOT NULL,
 	fk_id_Funcionario INTEGER NOT NULL,
 	fk_id_Cliente INTEGER NOT NULL,
-	
+	Data_Venda TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	FOREIGN KEY (fk_id_Caixa) REFERENCES Caixa(id_Caixa)
 		ON DELETE RESTRICT,
